@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Header from "./components/Header";
+import Content from "./components/Content";
+import Modal from "./components/Modal";
+import Footer from "./components/Footer";
+import axios from "axios";
+import "./index.scss"
 
 function App() {
+
+  const [posts, setPosts] = React.useState([]);
+
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const [showArticle, setShowArticle] = React.useState(false);
+
+  const [modalItems, setModalItems] = React.useState([]);
+
+  React.useEffect (() => {
+    try {
+      axios.get("https://jsonplaceholder.typicode.com/posts?userId=1").then((res) => {
+        setPosts(res.data)
+      }).finally(() =>setIsLoading(false))
+    } catch (error) {
+      alert("Не удалось загрузить статьи")
+    }
+   
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+     <Header/>
+     <Content
+     isLoading={isLoading}
+     posts={posts}
+     setShowArticle={setShowArticle}
+     />
+    
+     <Footer/>
+     {showArticle ? <Modal onClose={() => setShowArticle(false)} /> : null}
     </div>
   );
 }
