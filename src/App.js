@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import Content from "./components/Content";
-import Modal from "./components/Modal";
+
 import Footer from "./components/Footer";
 import axios from "axios";
 import "./index.scss"
@@ -14,7 +14,8 @@ function App() {
 
   const [showArticle, setShowArticle] = React.useState(false);
 
-  const [modalItems, setModalItems] = React.useState([]);
+  const [modalData, setModalData] = React.useState( {id: "", title: "", body: ""})
+
 
   React.useEffect (() => {
     try {
@@ -25,19 +26,36 @@ function App() {
       alert("Не удалось загрузить статьи")
     }
    
-  }, [])
+  }, []) 
 
+  const seeMore =  (id) => {
+    console.log(id)
+    try {
+      fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then(resposne=> resposne.json())
+      .then(res=>setModalData(res))
+    
+    } catch (error) {
+      alert("Ошибка")
+    }
+    
+  }
+ 
   return (
     <div className="wrapper">
      <Header/>
+     
      <Content
      isLoading={isLoading}
      posts={posts}
      setShowArticle={setShowArticle}
+     showArticle={showArticle}
+     seeMore={seeMore}
+     modalData={modalData}
      />
     
      <Footer/>
-     {showArticle ? <Modal onClose={() => setShowArticle(false)} /> : null}
+     
     </div>
   );
 }
