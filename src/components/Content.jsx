@@ -36,8 +36,7 @@ const Content = ({
                 key={item.id}
                 title={item.title}
                 body={item.body}
-                openModal={() => setShowArticle(true)}
-                onClickBtn={(id) => seeMore(id)}
+                onClickBtn={(obj) => seeMore(obj.id)}
               />
             )}
           </>

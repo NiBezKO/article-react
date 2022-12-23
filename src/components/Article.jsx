@@ -1,12 +1,17 @@
 import React from 'react'
+import AppContext from '../context';
 
-const Article = ({id, title, body, openModal, onClickBtn}) => {
+
+const Article = ({id, title, body, onClickBtn}) => {
   
+  const  {showArticle,setShowArticle,} = React.useContext(AppContext);
+
   const obj = {id, title, body}
 
   const onClickSeeMore = () => {
-    console.log(onClickSeeMore )
+    
     onClickBtn(obj)
+    setShowArticle(!showArticle)
     
   }
 

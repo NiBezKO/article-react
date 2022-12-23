@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import Content from "./components/Content";
-
+import AppContext from "./context";
 import Footer from "./components/Footer";
 import axios from "axios";
 import "./index.scss"
@@ -14,7 +14,7 @@ function App() {
 
   const [showArticle, setShowArticle] = React.useState(false);
 
-  const [modalData, setModalData] = React.useState( {id: "", title: "", body: ""})
+  const [modalData, setModalData] = React.useState("")
 
 
   React.useEffect (() => {
@@ -28,12 +28,11 @@ function App() {
    
   }, []) 
 
-  const seeMore =  (id) => {
-    console.log(id)
+  const seeMore = async (obj) => {
+    
     try {
-      fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-      .then(resposne=> resposne.json())
-      .then(res=>setModalData(res))
+      await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=1/${obj}`).then((res) => {
+        setModalData(res.data)})
     
     } catch (error) {
       alert("Ошибка")
@@ -42,6 +41,7 @@ function App() {
   }
  
   return (
+    <AppContext.Provider value={{showArticle,setShowArticle,}}>
     <div className="wrapper">
      <Header/>
      
@@ -57,6 +57,7 @@ function App() {
      <Footer/>
      
     </div>
+    </AppContext.Provider>
   );
 }
 
