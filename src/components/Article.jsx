@@ -15,7 +15,7 @@ const Article = ({id, title, body, onClickBtn}) => {
     
   }
 
- 
+  console.log(onClickSeeMore)
 
   return (
 
@@ -24,7 +24,7 @@ const Article = ({id, title, body, onClickBtn}) => {
         <h2 className="title">{title}</h2>
         <p className="description">{body}</p>
       </div>
-      <button onClick={onClickSeeMore} className='articleBtn'>See More</button>
+      <button onClick={(e) => onClickSeeMore(id, title, body, e)} className='articleBtn'>See More</button>
   </li>
   )
 }
