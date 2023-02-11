@@ -10,40 +10,32 @@ import { Routes, Route } from 'react-router-dom';
 import './index.scss';
 
 function App() {
-  const [showArticle, setShowArticle] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-
-  // const [modalData, setModalData] = React.useState("")
-
-  // const seeMore = async (id) => {
-
-  //   try {
-  //     if (modalData.find((obj) => obj.id === obj.id)) {
-  //       await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`).then((res) => {
-  //       setModalData(res.data)})
-  //     }
-  //   } catch (error) {
-  //     alert("Ошибка")
-  //   }
-
-  // }
+  // const [currentPage, setCurrentPage ] = React.useState(1)
+  // const [fetching, setFetching] = React.useState(true)
 
   React.useEffect(() => {
-    try {
-      axios
-        .get('https://jsonplaceholder.typicode.com/posts?userId=1')
-        .then((res) => {
-          setPosts(res.data);
-        })
-        .finally(() => setIsLoading(false));
-    } catch (error) {
-      alert('Не удалось загрузить статьи');
-    }
+    axios
+      .get(`https://jsonplaceholder.typicode.com/posts?_limit=10&_page=1`)
+      .then((res) => {
+        setPosts(res.data);
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
+  React.useEffect(() => {
+    window.addEventListener('scroll', scrollHandler);
+
+    return function () {
+      window.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  const scrollHandler = (e) => {};
+
   return (
-    <AppContext.Provider value={{ showArticle, setShowArticle, posts, setPosts }}>
+    <AppContext.Provider value={{ posts, setPosts }}>
       <div className="wrapper">
         <Header />
 
@@ -56,10 +48,6 @@ function App() {
                 setPosts={setPosts}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
-                setShowArticle={setShowArticle}
-                showArticle={showArticle}
-                //seeMore={seeMore}
-                //modalData={modalData}
               />
             }
           />

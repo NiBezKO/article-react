@@ -1,21 +1,21 @@
 import React from 'react';
 import Article from './Article';
 import Skeleton from './Skeleton';
-import Modal from './Modal';
+
+import AppContext from '../context';
 import Search from './Search/index';
 import { Link } from 'react-router-dom';
 
 const Content = ({
-  posts,
+  //posts,
 
   isLoading,
   setShowArticle,
   showArticle,
   //seeMore,
-  //modalData,
 }) => {
-  const [modalArticle, setModalArticle] = React.useState({});
   const [searchPosts, setSearchPosts] = React.useState('');
+  const { posts } = React.useContext(AppContext);
 
   return (
     <div className="content">
@@ -23,34 +23,42 @@ const Content = ({
         <h1>Articles</h1>
         <Search searchPosts={searchPosts} setSearchPosts={setSearchPosts} searchValueInput />
       </div>
-
-      <ul className="articleList">
-        {isLoading ? (
-          <div>
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </div>
-        ) : (
-          <>
-            {posts
-              // .filter((item) => item.title.toLowerCase().includes(setSearchPosts.toLowerCase()))
-              .map((item) => (
-                <Link className="postsLink" key={item.id} to={`/posts/${item.id}`}>
-                  <Article title={item.title} body={item.body} onClickBtn={setShowArticle} />
-                </Link>
-              ))}
-          </>
-        )}
-      </ul>
-      {showArticle ? <Modal onClose={() => setShowArticle(false)} /> : null}
+      <>
+        <ul className="articleList">
+          {isLoading ? (
+            <div>
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+            </div>
+          ) : (
+            <>
+              {
+                // .filter((item) => item.title.toLowerCase().includes(setSearchPosts.toLowerCase()))
+                posts
+                  .filter((item) => {
+                    if (item.title.toLowerCase().includes(searchPosts.toLowerCase())) {
+                      return true;
+                    }
+                    return false;
+                  })
+                  .map((item) => (
+                    <Link className="postsLink" key={item.id} to={`/posts/${item.id}`}>
+                      <Article title={item.title} body={item.body} />
+                    </Link>
+                  ))
+              }
+            </>
+          )}
+        </ul>
+      </>
     </div>
   );
 };
