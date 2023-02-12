@@ -10,8 +10,7 @@ const Content = ({
   //posts,
 
   isLoading,
-  setShowArticle,
-  showArticle,
+
   //seeMore,
 }) => {
   const [searchPosts, setSearchPosts] = React.useState('');
@@ -26,35 +25,21 @@ const Content = ({
       <>
         <ul className="articleList">
           {isLoading ? (
-            <div>
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-            </div>
+            [[...new Array(6)].map((_, index) => <Skeleton key={index} />)]
           ) : (
             <>
-              {
-                // .filter((item) => item.title.toLowerCase().includes(setSearchPosts.toLowerCase()))
-                posts
-                  .filter((item) => {
-                    if (item.title.toLowerCase().includes(searchPosts.toLowerCase())) {
-                      return true;
-                    }
-                    return false;
-                  })
-                  .map((item) => (
-                    <Link className="postsLink" key={item.id} to={`/posts/${item.id}`}>
-                      <Article title={item.title} body={item.body} />
-                    </Link>
-                  ))
-              }
+              {posts
+                .filter((item) => {
+                  if (item.title.toLowerCase().includes(searchPosts.toLowerCase())) {
+                    return true;
+                  }
+                  return false;
+                })
+                .map((item) => (
+                  <Link className="postsLink" key={item.id} to={`/posts/${item.id}`}>
+                    <Article title={item.title} body={item.body} />
+                  </Link>
+                ))}
             </>
           )}
         </ul>

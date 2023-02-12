@@ -93,6 +93,11 @@ $grey: grey;
     text-transform: uppercase;
   }
 
+  &__btns {
+    display: flex;
+    justify-content: space-around;
+  }
+
   .articleBtn {
     display: inline-block;
     width: 150px;
@@ -143,4 +148,8 @@ $grey: grey;
 .footer {
   margin-top: 80px;
   background-color: $headercolor;
+
+  p {
+    padding: 30px;
+  }
 }

@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-const Footer = () => {
+const Footer = ({ lastElement }) => {
   return (
-    <footer className='footer'>
-         <div className="footerContent">
-            <p>Все права защищены</p>
-         </div>
+    <footer ref={lastElement} className="footer">
+      <div className="footerContent">
+        <p>Все права защищены</p>
+      </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
