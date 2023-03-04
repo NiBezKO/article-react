@@ -24,11 +24,9 @@ const Content = ({
       </div>
       <>
         <ul className="articleList">
-          {isLoading ? (
-            [[...new Array(6)].map((_, index) => <Skeleton key={index} />)]
-          ) : (
-            <>
-              {posts
+          {isLoading
+            ? [[...new Array(6)].map((_, index) => <Skeleton key={index} />)]
+            : posts
                 .filter((item) => {
                   if (item.title.toLowerCase().includes(searchPosts.toLowerCase())) {
                     return true;
@@ -40,8 +38,6 @@ const Content = ({
                     <Article title={item.title} body={item.body} />
                   </Link>
                 ))}
-            </>
-          )}
         </ul>
       </>
     </div>

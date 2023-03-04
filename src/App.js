@@ -37,12 +37,8 @@ function App() {
     observer.current.observe(lastElement.current);
   }, [setPosts]);
 
-  const deletePost = (posts) => {
-    setPosts(posts.filter((obj) => obj.id !== posts.id));
-  };
-
   return (
-    <AppContext.Provider value={{ posts, setPosts, deletePost }}>
+    <AppContext.Provider value={{ posts, setPosts }}>
       <div className="wrapper">
         <Header />
 
