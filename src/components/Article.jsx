@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Article = ({ id, title, body }) => {
+const Article = ({ title, body }) => {
   return (
-    <li key={id} className="article">
+    <li className="article">
       <div className="articleInner">
-        <h2 className="title">{title}</h2>
-        <p className="description">{body}</p>
+        <h2>{title}</h2>
+        <p>{body}</p>
       </div>
       <div className="article__btns">
         <button className="articleBtn">See More</button>

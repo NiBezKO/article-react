@@ -35,7 +35,7 @@ const Content = ({
                 })
                 .map((item) => (
                   <Link className="postsLink" key={item.id} to={`/posts/${item.id}`}>
-                    <Article title={item.title} body={item.body} />
+                    <Article key={item.id} title={item.title} body={item.body} />
                   </Link>
                 ))}
         </ul>

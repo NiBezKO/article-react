@@ -54,7 +54,7 @@ function App() {
               />
             }
           />
-          <Route path="/posts/:id" element={<FullArticle posts={posts} setPosts={setPosts} />} />
+          <Route path="/posts/:id" element={<FullArticle />} />
         </Routes>
         <Footer lastElement={lastElement} />
       </div>
