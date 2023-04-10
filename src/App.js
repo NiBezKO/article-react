@@ -14,6 +14,40 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
   // const [fetching, setFetching] = React.useState(true)
+  const [userId, setUserId] = React.useState('');
+  const [title, setTitle] = React.useState('');
+  const [body, setBody] = React.useState('');
+  const [searchPosts, setSearchPosts] = React.useState('');
+  //   const newPost = (post) => {
+  //   const body = post.body;
+  //   const title = post.title;
+  //    const userID = post.userID;
+  //  };
+
+  const axiosPost = () => {
+    axios
+      .post('https://jsonplaceholder.typicode.com/posts', {
+        title: title,
+        body: body,
+        userId: userId,
+      })
+      .then((res) => {
+        setPosts([...posts, res.data]);
+        console.log(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const createPost = (e) => {
+    e.preventDefault();
+    console.log(title, body, userId);
+    axiosPost();
+    setTitle('');
+    setBody('');
+    setUserId('');
+  };
   const lastElement = useRef();
   const observer = useRef();
   console.log(lastElement);
@@ -38,7 +72,20 @@ function App() {
   }, [setPosts]);
 
   return (
-    <AppContext.Provider value={{ posts, setPosts }}>
+    <AppContext.Provider
+      value={{
+        posts,
+        setPosts,
+        userId,
+        setUserId,
+        title,
+        setTitle,
+        body,
+        setBody,
+        createPost,
+        searchPosts,
+        setSearchPosts,
+      }}>
       <div className="wrapper">
         <Header />
 
