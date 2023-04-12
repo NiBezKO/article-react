@@ -15,7 +15,7 @@ const Content = ({
 
   //seeMore,
 }) => {
-  const { posts, setPosts, setSearchPosts, searchPosts } = React.useContext(AppContext);
+  const { posts, setSearchPosts, searchPosts } = React.useContext(AppContext);
 
   return (
     <div className="content">
