@@ -1,15 +1,17 @@
 import React from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import style from './FullArticle.module.scss';
 import AppContext from '../../context';
 
 const FullArticle = () => {
   const { posts, setPosts } = React.useContext(AppContext);
-
+  const navigate = useNavigate();
   const { id } = useParams();
   const [comments, setComments] = React.useState([]);
+
   console.log(comments);
+
   React.useEffect(() => {
     axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`).then((res) => {
       setPosts(res.data);
@@ -25,8 +27,15 @@ const FullArticle = () => {
   if (!comments) {
     return 'Загрузка...';
   }
+
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <div className={style.wrapper}>
+      <div className={style.top}>
+        <p onClick={goBack}>Назад</p>
+      </div>
       <div className={style.FullArticle__Container}>
         <h3 className={style.title}>{posts.title}</h3>
         <article className={style.body}>{posts.body}</article>

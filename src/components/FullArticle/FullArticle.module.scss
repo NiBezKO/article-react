@@ -1,7 +1,28 @@
 .wrapper {
+  display: flex;
+  flex-direction: column;
   margin-top: 100px;
-
   font-size: 16px;
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 5px;
+
+    p {
+      margin-left: 15px;
+      margin-right: auto;
+      font-size: 20px;
+      cursor: pointer;
+      color: black;
+
+      transition: color 0.5s ease;
+      &:hover {
+        color: grey;
+      }
+    }
+  }
 }
 
 .FullArticle__Container {
